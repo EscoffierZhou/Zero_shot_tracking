@@ -26,35 +26,6 @@
 
 不同于传统的孪生网络 (Siamese) 分别处理模板和搜索区域，OSTrack 采用**单流 (One-Stream)** 架构，让模板和搜索区域的特征在早期就进行交互。
 
-```mermaid
-graph TD
-    subgraph Input [输入层]
-        T[模板图像 Template] --> P1[Patch Embedding]
-        S[搜索区域 Search Region] --> P2[Patch Embedding]
-    end
-
-    subgraph Backbone [ViT-B 主干网络]
-        P1 & P2 --> C[拼接 Tokens (Concat)]
-        C --> L1[Transformer Encoder Layer 1]
-        L1 --> L2[Transformer Encoder Layer 2]
-        L2 --> CE[候选消除模块 (Candidate Elimination)]
-        CE -- 保留高分 Token --> L3[Transformer Encoder Layer N]
-    end
-
-    subgraph Head [预测头]
-        L3 --> H1[全卷积 Head]
-        H1 --> Out1[分数图 Score Map]
-        H1 --> Out2[偏移量 Offset]
-        H1 --> Out3[尺寸 Size]
-    end
-
-    Input --> Backbone --> Head
-    
-    style CE fill:#f96,stroke:#333,stroke-width:2px
-    style Backbone fill:#e1f5fe,stroke:#01579b
-    style Head fill:#fff3e0,stroke:#ff6f00
-```
-
 ### 2. 核心机制解析
 
 #### A. 单流框架 (One-Stream Framework)
