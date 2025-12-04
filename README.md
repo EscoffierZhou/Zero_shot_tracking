@@ -81,7 +81,7 @@ $$ \text{State}_{t} = \alpha \cdot \text{Prediction}_{t} + (1 - \alpha) \cdot \t
 
 1.  进入目录:
     ```bash
-    cd F:\desktop\CV_Project\CV_TRACKING_FP32
+    cd .\CV_Project\CV_TRACKING_FP32
     ```
 2.  运行启动脚本:
     ```cmd
