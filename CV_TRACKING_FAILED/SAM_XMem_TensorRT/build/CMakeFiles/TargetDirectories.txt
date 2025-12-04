@@ -1,0 +1,3 @@
+/mnt/f/desktop/Object_Track/SAM_XMem_TensorRT/build/CMakeFiles/sam_test.dir
+/mnt/f/desktop/Object_Track/SAM_XMem_TensorRT/build/CMakeFiles/edit_cache.dir
+/mnt/f/desktop/Object_Track/SAM_XMem_TensorRT/build/CMakeFiles/rebuild_cache.dir
