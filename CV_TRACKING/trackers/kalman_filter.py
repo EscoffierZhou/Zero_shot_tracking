@@ -1,5 +1,5 @@
 """
-Kalman Filter for motion prediction and trajectory smoothing
+卡尔曼滤波器：用于运动预测和轨迹平滑
 """
 import numpy as np
 from filterpy.kalman import KalmanFilter
@@ -7,15 +7,15 @@ from filterpy.kalman import KalmanFilter
 
 class KalmanTracker:
     """
-    Kalman Filter for 2D bounding box tracking
-    State: [x, y, w, h, vx, vy, vw, vh]
+    用于 2D 边界框跟踪的卡尔曼滤波器
+    状态向量: [x, y, w, h, vx, vy, vw, vh]
     """
     
     def __init__(self):
-        # Initialize 8-state Kalman filter (x, y, w, h, vx, vy, vw, vh)
+        # 初始化 8 状态卡尔曼滤波器 (x, y, w, h, vx, vy, vw, vh)
         self.kf = KalmanFilter(dim_x=8, dim_z=4)
         
-        # State transition matrix (constant velocity model)
+        # 状态转移矩阵 (恒速模型)
         dt = 1.0
         self.kf.F = np.array([
             [1, 0, 0, 0, dt, 0, 0, 0],
@@ -28,7 +28,7 @@ class KalmanTracker:
             [0, 0, 0, 0, 0, 0, 0, 1]
         ])
         
-        # Measurement matrix (we only observe x, y, w, h)
+        # 测量矩阵 (我们只观测 x, y, w, h)
         self.kf.H = np.array([
             [1, 0, 0, 0, 0, 0, 0, 0],
             [0, 1, 0, 0, 0, 0, 0, 0],
@@ -36,13 +36,13 @@ class KalmanTracker:
             [0, 0, 0, 1, 0, 0, 0, 0]
         ])
         
-        # Measurement noise covariance
+        # 测量噪声协方差
         self.kf.R *= 10.0
         
-        # Process noise covariance
+        # 过程噪声协方差
         self.kf.Q[4:, 4:] *= 0.01
         
-        # Initial state covariance
+        # 初始状态协方差
         self.kf.P[4:, 4:] *= 1000.0
         self.kf.P *= 10.0
         
@@ -50,8 +50,8 @@ class KalmanTracker:
     
     def init(self, bbox):
         """
-        Initialize Kalman filter with first bounding box
-        Args:
+        使用第一个边界框初始化卡尔曼滤波器
+        参数:
             bbox: (x, y, w, h)
         """
         x, y, w, h = bbox
@@ -60,9 +60,9 @@ class KalmanTracker:
     
     def predict(self):
         """
-        Predict next state
-        Returns:
-            Predicted bounding box (x, y, w, h)
+        预测下一个状态
+        返回:
+            预测的边界框 (x, y, w, h)
         """
         if not self.initialized:
             return None
@@ -73,8 +73,8 @@ class KalmanTracker:
     
     def update(self, bbox):
         """
-        Update filter with measurement
-        Args:
+        使用测量值更新滤波器
+        参数:
             bbox: (x, y, w, h)
         """
         if not self.initialized:
@@ -86,9 +86,9 @@ class KalmanTracker:
     
     def get_state(self):
         """
-        Get current state estimate
-        Returns:
-            Current bounding box (x, y, w, h)
+        获取当前状态估计
+        返回:
+            当前边界框 (x, y, w, h)
         """
         if not self.initialized:
             return None

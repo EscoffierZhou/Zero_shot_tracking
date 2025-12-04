@@ -167,8 +167,7 @@ def process_video(video_path, x1, y1, x2, y2):
     stats['avg_fps'] = total_frames / elapsed_time if elapsed_time > 0 else 0
     stats['avg_confidence'] = np.mean(confidences) if confidences else 0
     
-    stats_text = f
-    """
+    stats_text = f"""
     ✅ 跟踪完成！
     📊 统计数据:
     - 总帧数: {stats['total_frames']}
@@ -365,4 +364,4 @@ with gr.Blocks(title="🎯 零样本目标跟踪器", theme=gr.themes.Soft()) as
 
 
 if __name__ == "__main__":
-    demo.launch(share=False, server_name="0.0.0.0", server_port=7999)
+    demo.launch(share=False, server_name="0.0.0.0", server_port=3021)
