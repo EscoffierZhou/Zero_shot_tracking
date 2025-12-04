@@ -88,7 +88,3 @@ $$ \text{State}_{t} = \alpha \cdot \text{Prediction}_{t} + (1 - \alpha) \cdot \t
     run_trt_fp32.bat
     ```
 3.  上传视频，选择目标，享受 **120+ FPS** 的丝滑跟踪！
-
----
-*作者: Escoffier Zhou & Antigravity AI*
-*日期: 2025年12月*
